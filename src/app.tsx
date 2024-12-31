@@ -1,12 +1,14 @@
 import React from 'react';
-import LandingPage from './pages/landingPage';
+import Chat from './app/chat';
+import { ThemeProvider } from '@emotion/react';
+import theme from './theme/theme';
 
 
 function App() {
   return (
-    <div className="App">
-      <LandingPage/>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Chat />
+    </ThemeProvider>
   );
 }
 
