@@ -1,23 +1,25 @@
+@import 'theme/scrollbar.scss';
+
 .landing-page-root {
   display: flex;
   flex-direction: column;
   height: 100vh;
   color: white;
-  // padding: 20px;
 
   .grid-container {
     display: flex;
     justify-content: space-around;
-    flex: 1;
 
     .gemini-history,
     .gpt-history {
       display: flex;
       flex-direction: column;
-      width: 48vw;
-      height: 86vh;
+      align-items: center;
+      width: 100%;
+      height: 90vh;
       overflow-y: auto;
-      padding: 10px;
+      padding: 60px 250px 0px;
+      @include custom-scrollbar(#63636364,#1a1a1a);
 
       .title {
         font-size: 24px;
@@ -27,19 +29,20 @@
       }
       .chat-message {
         margin: 10px 0;
-        padding: 4px 8px;
-        border-radius: 15px;
+        padding: 8px 12px;
+        border-radius: 12px;
         color: white;
         &.user {
           background-color: #0069e2;
           align-self: flex-end;
           width: fit-content;
-          max-width: 50%;
         }
 
         &.bot {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
           align-self: flex-start;
-          width: fit-content;
         }
       }
     }
@@ -50,7 +53,7 @@
     align-items: center;
     justify-content: space-between;
     margin: 20px auto;
-    max-width: 800px;
+    width: 650px;
     padding: 0 8px;
     border-radius: 20px;
     background-color: #4e4e4e;
