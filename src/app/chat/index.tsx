@@ -3,31 +3,27 @@ import { Grid, Box } from "@mui/material";
 import { sendMessageToChatGPT } from '../../services/chatgpt';
 import chatwithGemini from '../../services/gemini';
 import MarkdownRenderer from '../../components/markdownRenderer';
-import "../../styles";
 import LoadingButton from '../../components/loadingButton';
+import "../../styles";
 
-interface ChatMessage {
-    sender: 'user' | 'bot';
-    text: string;
-}
-
-interface userMsg {
+interface userMessage {
     sender: 'user';
     prompt: string;
 }
 
-interface botMsg {
+interface botMessage {
     sender: 'bot';
     bot1: string;
     bot2: string;
 }
 
-type TextMessage = userMsg | botMsg;
+type TextMessage = userMessage | botMessage;
+
+const modelOne = process.env.REACT_APP_MODEL_ONE as string;
+const modelTwo = process.env.REACT_APP_MODEL_TWO as string;
 
 const Chat = () => {
     const [message, setMessage] = useState<string>('');
-    const [chatGptHistory, setChatGptHistory] = useState<ChatMessage[]>([]);
-    const [geminiHistory, setGeminiHistory] = useState<ChatMessage[]>([]);
     const [chatHistory, setChatHistory] = useState<TextMessage[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -38,12 +34,8 @@ const Chat = () => {
     const handleSendMessage = async () => {
         if (!message.trim()) return;
 
-        const userMessage: ChatMessage = { sender: 'user', text: message };
-        const userMessage1: userMsg = { sender: 'user', prompt: message };
-
-        setChatGptHistory(prevChatGptHistory => [...prevChatGptHistory, userMessage]);
-        setGeminiHistory(prevGeminiHistory => [...prevGeminiHistory, userMessage]);
-        setChatHistory(prevHistory => [...prevHistory, userMessage1])
+        const userMessage: userMessage = { sender: 'user', prompt: message };
+        setChatHistory(prevHistory => [...prevHistory, userMessage]);
 
         try {
             setIsLoading(true);
@@ -51,12 +43,8 @@ const Chat = () => {
             const geminiBotResponse = await chatwithGemini(message);
             setIsLoading(false);
 
-            // const gptBotMessage: ChatMessage = { sender: 'bot', text: gptBotResponse };
-            // const geminiBotMessage: ChatMessage = { sender: "bot", text: geminiBotResponse };
-            const botMessage: botMsg = { sender: "bot", bot1: geminiBotResponse, bot2: gptBotResponse };
+            const botMessage: botMessage = { sender: "bot", bot1: geminiBotResponse, bot2: gptBotResponse };
 
-            // setChatGptHistory(prevChatGptHistory => [...prevChatGptHistory, gptBotMessage]);
-            // setGeminiHistory(prevHistory => [...prevHistory, geminiBotMessage]);
             setChatHistory(prevHistory => [...prevHistory, botMessage]);
 
         } catch (error) {
@@ -78,14 +66,14 @@ const Chat = () => {
             backgroundColor: 'primary.main'
         }}>
             <Grid container className="grid-container">
-                <Grid item className="gpt-history">
+                <Grid item className="chat-history">
                     {chatHistory.map((chat, index) => (
                         <div key={index} className={`chat-message ${chat.sender}`}>
                             {chat.sender == 'user' ? chat.prompt
                                 :
-                               <>   
-                                <MarkdownRenderer markdown={chat.bot1} />
-                                <MarkdownRenderer markdown={chat.bot2} />
+                                <>
+                                    <MarkdownRenderer model={modelOne} markdown={chat.bot1} />
+                                    <MarkdownRenderer model={modelTwo} markdown={chat.bot2} />
                                 </>
                             }
                         </div>
