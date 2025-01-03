@@ -16,6 +16,10 @@ const LoadingButton = ({ onClick, isLoading }: { onClick: () => void; isLoading:
                         backgroundColor: 'secondary.main',
                         padding: '0.5rem',
                         borderRadius: '50%',
+                        transition: "transform 0.3s ease", 
+                        ":hover":{
+                                transform: "scale(1.1)"
+                        }
                     }} />
                 </IconButton>
             )}

@@ -9,6 +9,29 @@ const theme = createTheme({
             main: '#b002c7',
         },
     },
+    typography: {
+      h1: {
+        fontSize: '1.5em',
+      },
+      h2: {
+        fontSize: '1.35em',
+      },
+      h3: {
+        fontSize: '1.25em',
+      },
+      h4: {
+        fontSize: '1.15em',
+      },
+      h5: {
+        fontSize: '1.05em',
+      },
+      h6: {
+        fontSize: '1em',
+      },
+      body1: {
+        fontSize: '1em', 
+      }
+    },
     components: {
         MuiCssBaseline: {
           styleOverrides: {
