@@ -1,46 +1,99 @@
-# Getting Started with Create React App
+# deMulti
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack application that features AI chat integrations using APIs
+A simple app that takes a single input and displays side-by-side responses from ChatGPT and Gemini for easy comparison.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+### Frontend
 
-### `npm start`
+- **React**: Dynamic and interactive UI.
+- **Material-UI**: For a modern, responsive design.
+- **SCSS**: Centralized styles with reusable theming.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Backend
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Node.js & Express**: Fast and scalable server-side logic.
+- **Prisma ORM**: Clean database interaction with MongoDB.
+- **MongoDB**: Flexible, document-based database for storing chat history.
 
-### `npm test`
+### Chat Functionality
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- AI integration.
+- Sidebar for managing multiple chats.
+- chat management
+- message history
+- response comparison
 
-### `npm run build`
+## Status
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🚧 **Under Development**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Requirements
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Node.js
+- MongoDB
 
-### `npm run eject`
+## 🛠️ Setup Instructions
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Prerequisites
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Node.js**: [Install Node.js](https://nodejs.org/)
+- **MongoDB**: [Install MongoDB](https://www.mongodb.com/try/download/community)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Installation
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. **Clone the repository**:
 
-## Learn More
+```bash
+git clone https://github.com/Achu1ahm/deMulti
+cd deMulti
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. **Install Dependencies**:
+```bash
+# Frontend
+cd client
+npm install
+
+# Backend
+cd ../server
+npm install
+```
+
+3. **Environment Setup**:
+Create .env files in both client/ and server/.
+For the backend (server/.env):
+- DATABASE_URL
+- PORT
+For the frontend (client/.env):
+- REACT_APP_OPENAI_API_KEY
+- REACT_APP_GEMINI_API_KEY
+- REACT_APP_MODEL_ONE
+- REACT_APP_MODEL_TWO
+
+4. **Start the server**:
+```bash
+# Frontend
+cd client
+npm start
+
+# Backend
+cd ../server
+npm run dev
+```
+## 🤝 Contributing
+Contributions are welcome! Follow these steps:
+
+1. Fork the repository.
+2. Create a feature branch:
+```bash
+git checkout -b feature/your-feature
+```
+3. Commit your changes and push:
+```bash
+git commit -m "Add your feature"
+git push origin feature/your-feature
+```
+4. Open a pull request.
