@@ -1,11 +1,11 @@
 import { useState, ChangeEvent, KeyboardEvent } from 'react';
 import { Grid, Box } from "@mui/material";
-import { sendMessageToChatGPT } from '../../services/bot/chatgpt';
-import chatwithGemini from '../../services/bot/gemini';
-import MarkdownRenderer from '../../components/markdownRenderer';
-import LoadingButton from '../../components/loadingButton';
-import { userMessage, botMessage } from '../../types/chat';
-import "../../styles";
+import { sendMessageToChatGPT } from '@app/services/bot/chatgpt';
+import chatwithGemini from '@app/services/bot/gemini';
+import MarkdownRenderer from '@app/components/markdownRenderer';
+import LoadingButton from '@app/components/buttons/loadingButton';
+import { userMessage, botMessage } from '@app/types/chat';
+import "@app/styles";
 
 
 type TextMessage = userMessage | botMessage;

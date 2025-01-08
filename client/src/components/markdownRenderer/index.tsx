@@ -2,7 +2,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Typography } from "@mui/material";
-import "../../styles";
+import "@app/styles";
 
 interface MarkdownRendererProps {
   markdown: string;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Button, List, ListItem, ListItemText, Typography } from "@mui/material";
-import "../../../styles/sidebar.scss";
+import "@app/styles/sidebar.scss";
 
 const Sidebar = () => {
     const chatList = [
