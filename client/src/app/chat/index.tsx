@@ -4,18 +4,9 @@ import { sendMessageToChatGPT } from '../../services/bot/chatgpt';
 import chatwithGemini from '../../services/bot/gemini';
 import MarkdownRenderer from '../../components/markdownRenderer';
 import LoadingButton from '../../components/loadingButton';
+import { userMessage, botMessage } from '../../types/chat';
 import "../../styles";
 
-interface userMessage {
-    sender: 'user';
-    prompt: string;
-}
-
-interface botMessage {
-    sender: 'bot';
-    bot1: string;
-    bot2: string;
-}
 
 type TextMessage = userMessage | botMessage;
 
