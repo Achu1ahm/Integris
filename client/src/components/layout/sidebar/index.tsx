@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Button, List, ListItem, ListItemText, Typography } from "@mui/material";
-import "@app/styles/sidebar.scss";
+
 
 const Sidebar = () => {
     const chatList = [
@@ -14,24 +14,27 @@ const Sidebar = () => {
     const [activeChat, setActiveChat] = useState<number | null>(null);
 
     return (
-        <Box className="sidebar" sx={{}}>
+        <Box sx={styles.sidebarStyles}>
             {/* Sidebar Header */}
-            <Typography variant="body1" className="header">
+            <Typography variant="h4" sx={styles.title}>
+                deMulti
+            </Typography>
+            <Typography variant="body1" sx={styles.header}>
                 Chats
             </Typography>
             {/* New Chat Button */}
-            <Button variant="contained" color="primary" className="new-chat-button">
+            <Button variant="contained" color="primary" sx={styles.newChatButton}>
                 + New Chat
             </Button>
             {/* Chat List */}
-            <List className="chat-list">
+            <List sx={styles.chatList}>
                 {chatList.map((chat) => (
                     <ListItem
                         key={chat.id}
                         button
                         onClick={() => setActiveChat(chat.id)}
                         className={`chat-item ${chat.id === activeChat ? "selected" : ""}`}
-                        sx={{ color: `${chat.id === activeChat && "secondary.main"}` }}
+                        sx={{ ...styles.chatItem, color: `${chat.id === activeChat && "primary.main"}` }}
                     >
                         <ListItemText
                             primary={chat.title}
@@ -47,3 +50,73 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+const styles = {
+    sidebarStyles: {
+        width: "350px",
+        height: "100vh",
+        color: "#fff",
+        display: "flex",
+        flexDirection: "column",
+        padding: "1rem",
+        zIndex: 2000,
+        boxShadow: "#b002c72c 1px 20px 40px",
+        backgroundColor: "primary.dark",
+    },
+    title: {
+        textAlign: 'center',
+        marginBottom: '2em',
+        fontFamily: 'sans-serif',
+        fontWeight: "bold"
+    },
+    header: {
+        marginBottom: "1rem",
+    },
+    chatList: {
+        flexGrow: 1,
+        overflowY: "auto",
+        "&::-webkit-scrollbar": {
+            width: "6px",
+            
+        },
+        "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "primary.light", 
+            borderRadius: "4px",
+        },
+        "&::-webkit-scrollbar-track": {
+            backgroundColor: "transparent",
+        },
+    },
+    chatItem: {
+        borderRadius: "4px",
+        padding: "0.8rem",
+        marginBottom: "0.5rem",
+        color: "text.primary",
+
+        "&:hover": {
+            cursor: "pointer",
+        },
+
+        "&.selected": {
+            backgroundColor: "secondary.main",
+
+            "&:hover": {
+                backgroundColor: "var(--mui-secondary-main)",
+            },
+        },
+
+        "   .chat-title": {
+            fontWeight: 600,
+        },
+
+        ".chat-description": {
+            fontSize: "0.875rem",
+        },
+    },
+    newChatButton: {
+        width: "50%",
+        border: "1px solid #b002c7",
+        color: "#b002c7",
+        margin: "10px 0px",
+    },
+};
