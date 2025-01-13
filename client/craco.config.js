@@ -1,9 +1,9 @@
-const path = require('path');
+import path from "path"
 
 module.exports = {
   webpack: {
     alias: {
-      '@app': path.resolve(__dirname, 'src'),
+      "@app": path.resolve(__dirname, "src"),
     },
   },
 };

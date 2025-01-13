@@ -75,48 +75,46 @@ const darkTheme = createTheme({
     primary: {
       main: "#1a1a1a",
       light: "#4e4e4e",
-      dark:"#000",
+      dark: "#000",
     },
     secondary: {
       main: "#b002c7",
       contrastText: "#fff",
     },
     text: {
-      primary: "#fff"
+      primary: "#fff",
     },
     scrollbar: {
-      thumb:"#63636364",
-      track: "#1a1a1a"
-  
-    }
+      thumb: "#63636364",
+      track: "#1a1a1a",
+    },
   },
 });
 
 const lightTheme = createTheme({
   ...commonTheme,
-palette: {
-  mode: "light",
-  primary: {
-    main: "#e6e6e6",
-    light: "#d2d2d2",
-    dark:"#828282"
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#e6e6e6",
+      light: "#d2d2d2",
+      dark: "#828282",
+    },
+    secondary: {
+      main: "#b002c7",
+    },
+    background: {
+      default: "#f5f5f5",
+      paper: "#ffffff",
+    },
+    text: {
+      primary: "#000000",
+    },
+    scrollbar: {
+      thumb: "#828282",
+      track: "#e6e6e6",
+    },
   },
-  secondary: {
-    main: "#b002c7",
-  },
-  background: {
-    default: "#f5f5f5",
-    paper: "#ffffff",
-  },
-  text: {
-    primary: "#000000"
-  },
-  scrollbar: {
-    thumb:"#828282",
-    track: "#e6e6e6"
-
-  }
-},
-})
+});
 
 export { lightTheme, darkTheme };

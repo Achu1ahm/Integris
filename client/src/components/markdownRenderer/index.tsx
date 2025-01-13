@@ -8,10 +8,15 @@ interface MarkdownRendererProps {
   model: string;
 }
 
-const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ model, markdown }) => {
+const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
+  model,
+  markdown,
+}) => {
   return (
     <Box sx={markdownRendererStyles}>
-      <Typography variant="body2" className="model-name">{model}</Typography>
+      <Typography variant="body2" className="model-name">
+        {model}
+      </Typography>
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
     </Box>
   );
