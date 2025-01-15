@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, KeyboardEvent } from "react";
+import { useState, ChangeEvent, KeyboardEvent, useEffect, useRef } from "react";
 import { Grid, Box } from "@mui/material";
 import { sendMessageToChatGPT } from "@app/services/bot/chatgpt";
 import chatwithGemini from "@app/services/bot/gemini";
@@ -16,6 +16,17 @@ const Chat = () => {
   const [message, setMessage] = useState<string>("");
   const [chatHistory, setChatHistory] = useState<TextMessage[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const lastMessageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  }, [chatHistory]);
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
@@ -59,9 +70,11 @@ const Chat = () => {
   return (
     <Box sx={styles.landingPageRoot}>
       <Grid container className="grid-container">
-        <Grid item className="chat-history">
+        <Grid item className="chat-history"  ref={chatContainerRef}>
           {chatHistory.map((chat, index) => (
-            <div key={index} className={`chat-message ${chat.sender}`}>
+            <div key={index}
+             className={`chat-message ${chat.sender}`}
+             ref={index === chatHistory.length - 1 ? lastMessageRef : null} >
               {chat.sender === "user" ? (
                 chat.prompt
               ) : (
@@ -111,6 +124,7 @@ const styles = {
         height: "90vh",
         overflowY: "auto",
         padding: "65px 150px 0px",
+        scrollPaddingTop: "150px", 
         // Scrollbar styles
         "&::-webkit-scrollbar": {
           width: "8px",
