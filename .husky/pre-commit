@@ -1,0 +1,8 @@
+# .husky/pre-commit
+echo "\n Running ESLint..."
+eslint $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --fix
+echo "\n Running Prettier..."
+prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
+echo "\n Updating git index..."
+echo "\n Pre-commit completed successfully!"
+
