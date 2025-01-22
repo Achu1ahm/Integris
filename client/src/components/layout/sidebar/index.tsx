@@ -127,6 +127,7 @@ const styles = {
 
     "&.selected": {
       backgroundColor: "secondary.main",
+      color: "inherit",
 
       "&:hover": {
         backgroundColor: "var(--mui-secondary-main)",

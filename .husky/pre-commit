@@ -4,5 +4,6 @@ eslint $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --f
 echo "\n Running Prettier..."
 prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
 echo "\n Updating git index..."
+git update-index --again
 echo "\n Pre-commit completed successfully!"
 
