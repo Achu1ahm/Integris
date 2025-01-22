@@ -1,11 +1,10 @@
 import { useState, ChangeEvent, KeyboardEvent, useEffect, useRef } from "react";
 import { Grid, Box } from "@mui/material";
-import { sendMessageToChatGPT } from "@app/services/bot/chatgpt";
-import chatwithGemini from "@app/services/bot/gemini";
 import MarkdownRenderer from "@app/components/markdownRenderer";
 import LoadingButton from "@app/components/buttons/loadingButton";
 import { userMessage, botMessage } from "@app/types/chat";
 import ChatNamePrompt from "@app/components/dialogBox/chatNamePrompt";
+import { sendMessageToBot } from "@app/services/api/botService";
 
 type TextMessage = userMessage | botMessage;
 
@@ -21,9 +20,9 @@ const Chat = () => {
 
   useEffect(() => {
     if (lastMessageRef.current) {
-      lastMessageRef.current.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
+      lastMessageRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
     }
   }, [chatHistory]);
@@ -38,26 +37,25 @@ const Chat = () => {
     const userMessage: userMessage = { sender: "user", prompt: message };
     setChatHistory((prevHistory) => [...prevHistory, userMessage]);
 
-    // while (chatHistory.length > 1) {
-    try {
-      setIsLoading(true);
-      const gptBotResponse = await sendMessageToChatGPT(message);
-      const geminiBotResponse = await chatwithGemini(message);
-      setIsLoading(false);
+    while (chatHistory.length > 1) {
+      try {
+        setIsLoading(true);
+        const botResponse = await sendMessageToBot(message);
+        setIsLoading(false);
 
-      const botMessage: botMessage = {
-        sender: "bot",
-        bot1: geminiBotResponse,
-        bot2: gptBotResponse,
-      };
+        const botMessage: botMessage = {
+          sender: "bot",
+          bot1: botResponse.message.geminiBotResponse,
+          bot2: botResponse.message.gptBotResponse,
+        };
 
-      setChatHistory((prevHistory) => [...prevHistory, botMessage]);
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setMessage("");
+        setChatHistory((prevHistory) => [...prevHistory, botMessage]);
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setMessage("");
+      }
     }
-    // }
   };
 
   const handleKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -70,11 +68,13 @@ const Chat = () => {
   return (
     <Box sx={styles.landingPageRoot}>
       <Grid container className="grid-container">
-        <Grid item className="chat-history"  ref={chatContainerRef}>
+        <Grid item className="chat-history" ref={chatContainerRef}>
           {chatHistory.map((chat, index) => (
-            <div key={index}
-             className={`chat-message ${chat.sender}`}
-             ref={index === chatHistory.length - 1 ? lastMessageRef : null} >
+            <div
+              key={index}
+              className={`chat-message ${chat.sender}`}
+              ref={index === chatHistory.length - 1 ? lastMessageRef : null}
+            >
               {chat.sender === "user" ? (
                 chat.prompt
               ) : (
@@ -124,7 +124,7 @@ const styles = {
         height: "90vh",
         overflowY: "auto",
         padding: "65px 150px 0px",
-        scrollPaddingTop: "150px", 
+        scrollPaddingTop: "150px",
         // Scrollbar styles
         "&::-webkit-scrollbar": {
           width: "8px",

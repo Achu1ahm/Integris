@@ -8,3 +8,7 @@ export interface botMessage {
   bot1: string;
   bot2: string;
 }
+
+export interface apiPrompt {
+  prompt: string;
+}
