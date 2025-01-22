@@ -1,22 +1,25 @@
-import { useState, ChangeEvent, KeyboardEvent, useEffect, useRef } from "react";
+import { ChangeEvent, KeyboardEvent, useEffect } from "react";
 import { Grid, Box } from "@mui/material";
 import MarkdownRenderer from "@app/components/markdownRenderer";
 import LoadingButton from "@app/components/buttons/loadingButton";
-import { userMessage, botMessage } from "@app/types/chat";
 import ChatNamePrompt from "@app/components/dialogBox/chatNamePrompt";
-import { sendMessageToBot } from "@app/services/api/botService";
-
-type TextMessage = userMessage | botMessage;
+import useChatHandler from "./useChatHandler";
 
 const modelOne = process.env.REACT_APP_MODEL_ONE as string;
 const modelTwo = process.env.REACT_APP_MODEL_TWO as string;
 
 const Chat = () => {
-  const [message, setMessage] = useState<string>("");
-  const [chatHistory, setChatHistory] = useState<TextMessage[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const chatContainerRef = useRef<HTMLDivElement>(null);
-  const lastMessageRef = useRef<HTMLDivElement>(null);
+  const {
+    message,
+    setMessage,
+    chatHistory,
+    isLoading,
+    showChatNamePrompt,
+    chatContainerRef,
+    lastMessageRef,
+    handleSendMessage,
+    handleChatNameSubmit,
+  } = useChatHandler();
 
   useEffect(() => {
     if (lastMessageRef.current) {
@@ -29,33 +32,6 @@ const Chat = () => {
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
-  };
-
-  const handleSendMessage = async () => {
-    if (!message.trim()) return;
-
-    const userMessage: userMessage = { sender: "user", prompt: message };
-    setChatHistory((prevHistory) => [...prevHistory, userMessage]);
-
-    while (chatHistory.length > 1) {
-      try {
-        setIsLoading(true);
-        const botResponse = await sendMessageToBot(message);
-        setIsLoading(false);
-
-        const botMessage: botMessage = {
-          sender: "bot",
-          bot1: botResponse.message.geminiBotResponse,
-          bot2: botResponse.message.gptBotResponse,
-        };
-
-        setChatHistory((prevHistory) => [...prevHistory, botMessage]);
-      } catch (error) {
-        console.error("Error:", error);
-      } finally {
-        setMessage("");
-      }
-    }
   };
 
   const handleKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -98,7 +74,7 @@ const Chat = () => {
         />
         <LoadingButton onClick={handleSendMessage} isLoading={isLoading} />
       </Box>
-      {chatHistory.length === 1 && <ChatNamePrompt />}
+      {showChatNamePrompt && <ChatNamePrompt onSubmit={handleChatNameSubmit} />}
     </Box>
   );
 };
