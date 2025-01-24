@@ -1,4 +1,4 @@
-# deMulti
+# Integris
 
 A full-stack application that features AI chat integrations using APIs
 A simple app that takes a single input and displays side-by-side responses from ChatGPT and Gemini for easy comparison.
@@ -46,8 +46,8 @@ A simple app that takes a single input and displays side-by-side responses from 
 1. **Clone the repository**:
 
 ```bash
-git clone https://github.com/Achu1ahm/deMulti
-cd deMulti
+git clone https://github.com/Achu1ahm/Integris
+cd Integris
 
 ```
 

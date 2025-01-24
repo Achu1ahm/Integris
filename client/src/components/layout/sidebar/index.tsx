@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -7,8 +7,12 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import { getUserChats } from "@app/services/api/chatService";
+import { useUserStore } from "@app/store/useUserStore";
 
 const Sidebar = () => {
+  const { userId } = useUserStore();
+
   const chatList = [
     {
       id: 1,
@@ -36,14 +40,24 @@ const Sidebar = () => {
       description: "Last message: Add to backlog.",
     },
   ];
-
+  const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchChats = async () => {
+      const userChats = await getUserChats(userId);
+      setChats(userChats);
+      console.log(chats);
+      
+    };
+    fetchChats();
+  }, [userId]);
 
   return (
     <Box sx={styles.sidebarStyles}>
       {/* Sidebar Header */}
       <Typography variant="h4" sx={styles.title}>
-        deMulti
+        Integris
       </Typography>
       <Typography variant="body1" sx={styles.header}>
         Chats
