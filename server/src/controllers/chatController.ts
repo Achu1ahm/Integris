@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 // import prisma from "../models/prismaClient";
-import { sendMessageToChatGPT } from "../services/chatgpt";
-import chatwithGemini from "../services/gemini";
+import { sendMessageToChatGPT } from "../services/botApi/chatgpt";
+import chatwithGemini from "../services/botApi/gemini";
 
 const sendPromptToBot = async (req: Request, res: Response) => {
   console.log(req.body);
