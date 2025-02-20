@@ -1,6 +1,6 @@
 import { IconButton, CircularProgress } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-// MuiCircularProgress-svg
+
 const LoadingButton = ({
   onClick,
   isLoading,
@@ -16,11 +16,7 @@ const LoadingButton = ({
         <IconButton onClick={onClick} aria-label="send">
           <SendIcon
             sx={{
-              color: "white",
-              backgroundColor: "secondary.main",
-              padding: "0.5rem",
-              borderRadius: "50%",
-              transition: "transform 0.3s ease",
+              ...styles,
               ":hover": {
                 transform: "scale(1.1)",
               },
@@ -30,6 +26,14 @@ const LoadingButton = ({
       )}
     </>
   );
+};
+
+const styles = {
+  color: "white",
+  backgroundColor: "secondary.main",
+  padding: "0.5rem",
+  borderRadius: "50%",
+  transition: "transform 0.3s ease",
 };
 
 export default LoadingButton;

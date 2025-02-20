@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@app/*": ["*"]
+    },
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    "typeRoots": ["./types", "./node_modules/@types"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,5 +27,6 @@
   },
   "include": [
     "src"
-  ]
+, "craco.config.js"  ],
+  "exclude": ["node_modules"]
 }

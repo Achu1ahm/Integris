@@ -1,19 +1,15 @@
-import React from 'react';
-import Chat from './app/chat';
-import { ThemeProvider } from '@emotion/react';
-import { CssBaseline } from '@mui/material';
-import theme from './styles/theme/theme';
-import AppLayout from './components/layout';
-
+import React from "react";
+import Chat from "@app/app/chat";
+import AppLayout from "@app/components/layout";
+import { CustomThemeProvider } from "@app/styles/theme/themeContext";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-       <CssBaseline />
+    <CustomThemeProvider>
       <AppLayout>
-      <Chat />
+        <Chat />
       </AppLayout>
-    </ThemeProvider>
+    </CustomThemeProvider>
   );
 }
 
